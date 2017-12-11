@@ -1,12 +1,17 @@
+import Project_package.Project;
+import ch.makery.shop.ITaskService;
+import ch.makery.shop.TaskService;
+import ch.makery.shop.model.Task;
+import javafx.collections.ObservableList;
+
 public class Main {
     public static void main(String[] args) {
-        Project p = new Project("asd", "asdasd");
-        p.assignTask(12,1);
-        p.assignTask(11,2);
-        p.assignTask(10,1);
-        p.assignTask(1);
 
-        p.showTaskUser();
+        Project p = new Project("NASA", "Jest to super tajny projekt NASA.");
+
+        p.assignAllTasks();
+        p.showTasks();
+
 
     }
 }
