@@ -61,11 +61,11 @@ public class Project {
         
        // usersList = (ObservableList<User>) manager.getAllUsers();
         userlist = new ArrayList<>();
-        userlist.add(new Usertest(0, "Kovalsky"));
-        userlist.add(new Usertest(1, "Mak�owicz"));
-        userlist.add(new Usertest(2, "Banach"));
-        userlist.add(new Usertest(3, "Ive"));
-        userlist.add(new Usertest(4, "Bastiat"));
+        userlist.add(new Usertest(0, "Kovalsky", "Kierownik Projektu"));
+        userlist.add(new Usertest(1, "Maklowicz", "Programista"));
+        userlist.add(new Usertest(2, "Kalafior", "Programista"));
+        userlist.add(new Usertest(3, "Renekton", "Programista"));
+        userlist.add(new Usertest(4, "Bastiat", "Tester"));
         
     }
 
@@ -99,17 +99,16 @@ public class Project {
      * Metoda wypisująca ID zadań przypisanych do danego projektu
      */
     public void showTasks(){
-        System.out.println("Projekt: " + projectName);
-        System.out.println("Zadania:");
 
         Set<Integer> tasksSet = taskUserMap.keySet(); /** Pobieram z mapy projektu wszystkie ID zadań */
         Task t; /** pomocniczy task */
 
         System.out.println("ID \t Nazwa \t Opis \t Termin");
+        System.out.println("--------------------------------------");
 
         for(Integer taskId : tasksSet){     /** Petla wykonuje sie dla wszystkich ID z naszej mapy */
             t = tasksList.get(taskId);      /** Pobieram task z listy tasków */
-            System.out.println(t.getID() + "\t" + t.getTitle() + "\t" + t.getDescription() + "\t" + t.getDueDate()); /** Wypisuje co trzeba */
+            System.out.println(t.getID() + "\t " + t.getTitle() + "\t " + t.getDescription() + "\t " + t.getDueDate()); /** Wypisuje co trzeba */
         }
     }
 
@@ -117,10 +116,36 @@ public class Project {
      * Metoda wypisująca ID zadań i ID użytkowników odpowiedzialnych za dane zadanie
      */
     public void showTaskUser(){
-        System.out.println("tID \t uID \t Nazwisko");
+        System.out.println("ID zadania \t Uzytkownik");
+        System.out.println("--------------------------------------");
         Set<Map.Entry<Integer,Integer>> entrySet = taskUserMap.entrySet();
         for(Map.Entry<Integer, Integer> entry: entrySet) {
-            System.out.println(entry.getKey() + "\t " + entry.getValue() + "\t  " + userlist.get(entry.getValue()).getNazwisko());
+        	if(entry.getValue() != null)
+            System.out.println(entry.getKey() + " \t\t " + userlist.get(entry.getValue()).getNazwisko());
+        	else
+        	System.out.println(entry.getKey() + " \t\t " + "NIE PRZYDZIELONO!");	
+        }
+    }
+    
+    public void showTaskUser(String login){
+    	int licznik = 0;
+    	System.out.println("ID \t Nazwa \t Opis \t Termin");
+    	 System.out.println("--------------------------------------");
+        Set<Map.Entry<Integer,Integer>> entrySet = taskUserMap.entrySet();
+        for(Map.Entry<Integer, Integer> entry: entrySet) {
+        	if(entry.getValue() != null && userlist.get(entry.getValue()).getNazwisko().equals(login)){
+        		System.out.println(tasksList.get(entry.getKey()).getID() + "\t " + tasksList.get(entry.getKey()).getTitle() + "\t " + tasksList.get(entry.getKey()).getDescription() + "\t " + tasksList.get(entry.getKey()).getDueDate());
+        		licznik++;
+        	}
+        }
+        if(licznik == 0) System.out.println("Brak zadan!");
+    }
+    
+    public void showUsers(){
+    	System.out.println("ID \t Nazwisko \t Stanowisko");
+    	 System.out.println("--------------------------------------");
+    	for(Usertest t : userlist){
+    		System.out.println(t.getID()+ "\t " + t.getNazwisko() + "\t " + t.getStanowisko());;
         }
     }
 

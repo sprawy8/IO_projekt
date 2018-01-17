@@ -78,4 +78,14 @@ public class Project {
     public void setProjectDetails(String projectDetails) {
         this.projectDetails = projectDetails;
     }
+
+	public Map<Integer, Integer> getTaskUserMap() {
+		return taskUserMap;
+	}
+
+	public void setTaskUserMap(Map<Integer, Integer> taskUserMap) {
+		this.taskUserMap = taskUserMap;
+	}
+    
+    
 }
