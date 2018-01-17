@@ -1,17 +1,24 @@
 package Project_package;
-
-import Project_package.Project;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import Project_package.Project;
+
 public class ProjectManager {
+	
+	//singleton
+	private static ProjectManager instance = new ProjectManager();
 
     private List<Project> projectList;      /** Lista wszystkich projektów */
 
     /** Constructors */
     public ProjectManager(){
         projectList = new ArrayList<>();
+    }
+    
+    //zwrot instance z singleon
+    public static ProjectManager getInstance() {
+    	return instance;
     }
 
     /** Metoda odpowiedzialna za dodawanie projektu do managera */

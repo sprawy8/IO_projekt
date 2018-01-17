@@ -5,10 +5,17 @@ import ch.makery.shop.TaskService;
 import ch.makery.shop.model.Task;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
+
+import JavaMasters.IO.User;
+import JavaMasters.IO.UsersManager;
+
+
 
 public class Project {
 
@@ -18,19 +25,30 @@ public class Project {
                                                  * Task = key, zadania nie powtarzają się
                                                 * User = value, użytkownicy mogą się powtarzać (jeden robi kilka zadań)
                                                   */
-
+    private List<Usertest> userlist;
     /** TASK */
     ObservableList<Task> tasksList;
     ITaskService iTask;
-
+    
+    /** USER */
+    ObservableList<User> usersList;
+    UsersManager manager;
+    User user;
+    
+    
     /** Constructors */
     public Project() {
         this.projectName = "emptyProject";
         this.projectDetails = "emptyProject";
         taskUserMap = new HashMap<>();
 
+        
         iTask = new TaskService();
         tasksList = iTask.getTaskList();
+        
+        userlist = new ArrayList<>();
+      //  usersList = (ObservableList<User>) manager.getAllUsers();
+        
     }
 
     public Project(String projectName, String projectDetails) {
@@ -40,6 +58,15 @@ public class Project {
 
         iTask = new TaskService();
         tasksList = iTask.getTaskList();
+        
+       // usersList = (ObservableList<User>) manager.getAllUsers();
+        userlist = new ArrayList<>();
+        userlist.add(new Usertest(0, "Kovalsky"));
+        userlist.add(new Usertest(1, "Mak�owicz"));
+        userlist.add(new Usertest(2, "Banach"));
+        userlist.add(new Usertest(3, "Ive"));
+        userlist.add(new Usertest(4, "Bastiat"));
+        
     }
 
     /**
@@ -90,10 +117,10 @@ public class Project {
      * Metoda wypisująca ID zadań i ID użytkowników odpowiedzialnych za dane zadanie
      */
     public void showTaskUser(){
-        System.out.println("tID \t uID");
+        System.out.println("tID \t uID \t Nazwisko");
         Set<Map.Entry<Integer,Integer>> entrySet = taskUserMap.entrySet();
         for(Map.Entry<Integer, Integer> entry: entrySet) {
-            System.out.println(entry.getKey() + "\t : \t " + entry.getValue());
+            System.out.println(entry.getKey() + "\t " + entry.getValue() + "\t  " + userlist.get(entry.getValue()).getNazwisko());
         }
     }
 
